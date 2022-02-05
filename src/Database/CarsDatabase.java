@@ -1,24 +1,23 @@
-package Dealer;
+package Database;
 
 import Car.Car;
 import Factory.CarsFactory;
 
-
 import java.util.ArrayList;
 
-public class Dealer {
-    private static Dealer instance;
+public class CarsDatabase {
+    private static CarsDatabase instance;
     private final CarsFactory carsFactory;
     private final ArrayList<Car> cars;
 
-    private Dealer() {
+    private CarsDatabase() {
         this.cars = new ArrayList<>(10);
         this.carsFactory = new CarsFactory();
     }
 
-    public static Dealer getInstance() {
+    public static CarsDatabase getInstance() {
         if(instance == null) {
-            instance = new Dealer();
+            instance = new CarsDatabase();
         }
         return instance;
     }
@@ -27,11 +26,16 @@ public class Dealer {
         return this.cars;
     }
 
-    public void displayCars() {
+    public void showCars() {
         if(this.cars.isEmpty()) {
             System.out.println("Dealer: Car database is empty.");
+
+        }else {
+            System.out.printf("%n");
+            System.out.println("Available cars: ");
+            this.cars.forEach((car) -> System.out.println(this.cars.indexOf(car) + "." + car.toString()));
         }
-        this.cars.forEach((car) -> System.out.println(car.toString()));
+
     }
 
     public void restockDatabase(int numberOfCars){
@@ -42,5 +46,6 @@ public class Dealer {
 
     public void clearSpot(Car car){
         this.cars.remove(car);
+        this.restockDatabase(1);
     }
 }

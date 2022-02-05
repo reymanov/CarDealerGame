@@ -15,15 +15,15 @@ public class Mechanic {
         this.costMultiplier = costMultiplier;
     }
 
-    public Double calculateRepairCost(String carBrand, Part part) {
+    private Double calculateRepairCost(String carBrand, Part part) {
         double cost;
         double brandMultiplier;
         switch (part.name){
-            case "Breaks" -> cost = 200.0;
-            case "Suspension" -> cost = 1000.0;
-            case "Engine" -> cost = 2000.0;
-            case "Body" -> cost = 500.0;
-            case "Transmission" -> cost = 800.0;
+            case "Breaks" -> cost = 2000.0;
+            case "Suspension" -> cost = 5000.0;
+            case "Engine" -> cost = 20000.0;
+            case "Body" -> cost = 6000.0;
+            case "Transmission" -> cost = 8000.0;
             default -> throw new IllegalStateException("Part not recognized");
         }
         switch (carBrand) {
@@ -44,7 +44,7 @@ public class Mechanic {
 
     private Boolean checkIfCanBeRepaired(Car car, Part part, Player owner, Double repairCost) {
         if(part.isOperational) {
-            System.out.println("This part is operational, nothing to fix here");
+            System.out.println(part.name + " is operational, nothing to fix here");
             return false;
         }else if(!owner.getGarage().contains(car)){
             System.out.println("Mechanic " + this.name + ": You don't own that car");
@@ -66,9 +66,17 @@ public class Mechanic {
     public void repairPart(Car car, Part part, Player owner) {
         Double repairCost = this.calculateRepairCost(car.brand, part);
         if(this.checkIfCanBeRepaired(car, part, owner, repairCost)) {
-            System.out.println("Part repaired");
+            System.out.println(part.name + " repaired, cost: " + repairCost);
             car.repairPart(part);
             owner.cash -= repairCost;
         }
+    }
+
+    public void repairEverything(Car car, Player owner) {
+        System.out.printf("%n");
+        System.out.println("Mechanic " + this.name + ": Repairing everything");
+        car.parts.forEach((p) -> {
+           this.repairPart(car, p, owner);
+        } );
     }
 }

@@ -78,9 +78,8 @@ public class CarsFactory {
         return price;
     }
 
-    private String generatePartName() {
+    private String getPartName(int value) {
         String partName;
-        int value = this.getRandomNumber(5);
         switch (value) {
             case 1 -> partName = "Breaks";
             case 2 -> partName = "Suspension";
@@ -95,9 +94,12 @@ public class CarsFactory {
     private ArrayList<Part> generateParts(){
         int capacity = 5;
         ArrayList<Part> parts = new ArrayList<>(capacity);
-        for(int i = 0; i < capacity; i++){
-            parts.add(new Part(this.generatePartName()));
+
+        for(int i = 1; i <= capacity; i++){
+            Part part = new Part(this.getPartName(i));
+            parts.add(part);
         }
+
         return parts;
     }
 
