@@ -34,4 +34,25 @@ public class Car {
                 ", parts=" + parts +
                 '}';
     }
+
+    private void increaseCarValue(Part part){
+        double value;
+        switch (part.name) {
+            case "Breaks" -> value = 1.1;
+            case "Suspension" -> value = 1.2;
+            case "Engine" -> value = 2.0;
+            case "Body", "Transmission" -> value = 1.5;
+            default -> value = 1.0;
+        }
+        this.price *= value;
+    }
+
+    public void repairPart(Part part) {
+        int partNumber = this.parts.indexOf(part);
+        Part modifiedPart = this.parts.get(partNumber);
+
+        modifiedPart.repair();
+        this.parts.set(partNumber, modifiedPart);
+        this.increaseCarValue(part);
+    }
 }

@@ -1,43 +1,30 @@
-package Database;
+package Dealer;
 
 import Car.Car;
 import Factory.CarsFactory;
-import Player.Player;
+
 
 import java.util.ArrayList;
 
-public class CarDataBase {
-    private static CarDataBase instance;
+public class Dealer {
+    private static Dealer instance;
     private final CarsFactory carsFactory;
     private final ArrayList<Car> cars;
 
-    private CarDataBase() {
+    private Dealer() {
         this.cars = new ArrayList<>(10);
         this.carsFactory = new CarsFactory();
     }
 
-    public static CarDataBase getInstance() {
+    public static Dealer getInstance() {
         if(instance == null) {
-            instance = new CarDataBase();
+            instance = new Dealer();
         }
         return instance;
     }
 
     public ArrayList<Car> getCars() {
         return this.cars;
-    }
-
-    public Car buyCar(int carNumber, Player buyer) {
-        Car carToBuy = cars.get(carNumber);
-        if(buyer.getAccountStatus() >= cars.get(carNumber).price) {
-            System.out.println("Dealer: We can sell you this car");
-            cars.remove(carNumber);
-        }
-        else {
-            System.out.println("Dealer: Come back when You will have more money");
-            return null;
-        }
-        return carToBuy;
     }
 
     public void displayCars() {
@@ -53,7 +40,7 @@ public class CarDataBase {
         }
     }
 
-    public void clearDatabase(){
-        this.cars.clear();
+    public void clearSpot(Car car){
+        this.cars.remove(car);
     }
 }

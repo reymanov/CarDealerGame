@@ -11,7 +11,7 @@ public class Part implements Repairable {
 
     @Override
     public void repair() {
-
+        this.isOperational = true;
     }
 
     @Override
