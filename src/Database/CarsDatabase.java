@@ -6,11 +6,13 @@ import Factory.CarsFactory;
 import java.util.ArrayList;
 
 public class CarsDatabase {
+    public String name;
     private static CarsDatabase instance;
     private final CarsFactory carsFactory;
     private final ArrayList<Car> cars;
 
     private CarsDatabase() {
+        this.name = "Dealer";
         this.cars = new ArrayList<>(10);
         this.carsFactory = new CarsFactory();
     }

@@ -12,17 +12,20 @@ public class Player {
     public String name;
     public Double cash;
     private final ArrayList<Car> garage;
+    private ArrayList<Transaction> transactions;
 
     public Player(String name, Double cash) {
         this.name = name;
         this.cash = cash;
         this.garage = new ArrayList<>(GARAGE_SIZE);
+        this.transactions = new ArrayList<>();
     }
 
     private void washAndPay(Car car) {
         double tax = car.price * 0.02;
         System.out.printf("%n");
         System.out.println("'Car is now all clean'");
+        this.cash -= 50.0;
         System.out.println("2% Tax has been payed, payed:" + tax);
         this.cash -= tax;
     }
@@ -59,7 +62,7 @@ public class Player {
             seller.clearSpot(car);
             garage.add(car);
             this.washAndPay(car);
-
+            this.noteTransaction(car, seller.name, this.name, car.price);
         }
     }
 
@@ -78,6 +81,7 @@ public class Player {
             this.cash += price;
             this.garage.remove(car);
 
+            this.noteTransaction(car, this.name, customer.name, price);
             customersDatabase.addCustomers(2);
         }
     }
@@ -129,4 +133,17 @@ public class Player {
         customersDatabase.addCustomers(1);
     }
 
+    private void noteTransaction(Car car, String seller, String buyer, Double price){
+        this.transactions.add(new Transaction(car, seller, buyer,price));
+    }
+
+    public void showTransactions() {
+        if(this.transactions.isEmpty()){
+            System.out.println("No transactions recorded");
+        }else {
+            System.out.printf("%n");
+            System.out.println("Your transactions");
+              this.transactions.forEach((t) -> System.out.println(this.transactions.indexOf(t) + "." + t.toString()));
+        }
+    }
 }
