@@ -11,6 +11,8 @@ public class Car {
     public int mileage;
     public Double price;
     public ArrayList<Part> parts;
+    private final ArrayList<Raport> repairHistory;
+    public Double totalWashCost;
 
 
     public Car(String brand, String segment, String color, int mileage, Double price, ArrayList<Part> parts) {
@@ -20,7 +22,8 @@ public class Car {
         this.mileage = mileage;
         this.price = price;
         this.parts = parts;
-
+        this.repairHistory = new ArrayList<>();
+        this.totalWashCost = 0.0;
     }
 
     @Override
@@ -55,4 +58,28 @@ public class Car {
         this.parts.set(partNumber, modifiedPart);
         this.increaseCarValue(part);
     }
+
+    public void addRepairReport(Part part, String mechanic, Double price) {
+        this.repairHistory.add(new Raport(part,mechanic,price));
+    }
+
+    public void showRepairHistory() {
+        if(this.repairHistory.isEmpty()){
+            System.out.println("No repairs recorded");
+        }else {
+            System.out.printf("%n");
+            System.out.println(this.brand + " - Recorded repairs");
+            this.repairHistory.forEach((r) -> System.out.println(this.repairHistory.indexOf(r) + "." + r.toString()));
+        }
+    }
+
+    public void showRepairAndWashCosts() {
+       Double totalRepairPrice = 0.0;
+       for(int i = 0; i < this.repairHistory.size(); i++) {
+           totalRepairPrice += this.repairHistory.get(i).price;
+       }
+        System.out.printf("%n");
+        System.out.println("Total repair & wash cost for " + this.brand + ": " + Double.sum(totalRepairPrice ,this.totalWashCost) + "$");
+    }
+
 }

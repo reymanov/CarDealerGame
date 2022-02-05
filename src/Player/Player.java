@@ -12,7 +12,7 @@ public class Player {
     public String name;
     public Double cash;
     private final ArrayList<Car> garage;
-    private ArrayList<Transaction> transactions;
+    private final ArrayList<Transaction> transactions;
 
     public Player(String name, Double cash) {
         this.name = name;
@@ -23,10 +23,12 @@ public class Player {
 
     private void washAndPay(Car car) {
         double tax = car.price * 0.02;
+        double washPrice = 120.0;
         System.out.printf("%n");
         System.out.println("'Car is now all clean'");
-        this.cash -= 50.0;
-        System.out.println("2% Tax has been payed, payed:" + tax);
+        this.cash -= washPrice;
+        car.totalWashCost += washPrice;
+        System.out.println("2% Tax has been payed, payed:" + tax + "$");
         this.cash -= tax;
     }
 
@@ -116,7 +118,7 @@ public class Player {
    }
 
    public void checkAccount() {
-       System.out.println("Available Cash: " + this.cash);
+       System.out.println("Available Cash: " + this.cash + "$");
    }
 
    public void advertiseInNewspaper(CustomersDatabase customersDatabase) {
@@ -145,5 +147,9 @@ public class Player {
             System.out.println("Your transactions");
               this.transactions.forEach((t) -> System.out.println(this.transactions.indexOf(t) + "." + t.toString()));
         }
+    }
+
+    public void showSpendingsForAllCars() {
+        this.getGarage().forEach(car -> car.showRepairAndWashCosts());
     }
 }

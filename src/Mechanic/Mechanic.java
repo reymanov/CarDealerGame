@@ -21,9 +21,9 @@ public class Mechanic {
         switch (part.name){
             case "Breaks" -> cost = 2000.0;
             case "Suspension" -> cost = 5000.0;
-            case "Engine" -> cost = 20000.0;
-            case "Body" -> cost = 6000.0;
-            case "Transmission" -> cost = 8000.0;
+            case "Engine" -> cost = 10000.0;
+            case "Body" -> cost = 4000.0;
+            case "Transmission" -> cost = 6000.0;
             default -> throw new IllegalStateException("Part not recognized");
         }
         switch (carBrand) {
@@ -66,8 +66,9 @@ public class Mechanic {
     public void repairPart(Car car, Part part, Player owner) {
         Double repairCost = this.calculateRepairCost(car.brand, part);
         if(this.checkIfCanBeRepaired(car, part, owner, repairCost)) {
-            System.out.println(part.name + " repaired, cost: " + repairCost);
+            System.out.println(part.name + " repaired, cost: " + repairCost + "$");
             car.repairPart(part);
+            car.addRepairReport(part,this.name, repairCost);
             owner.cash -= repairCost;
         }
     }
@@ -75,8 +76,9 @@ public class Mechanic {
     public void repairEverything(Car car, Player owner) {
         System.out.printf("%n");
         System.out.println("Mechanic " + this.name + ": Repairing everything");
-        car.parts.forEach((p) -> {
-           this.repairPart(car, p, owner);
-        } );
+        for (Part p : car.parts) {
+            this.repairPart(car, p, owner);
+        }
     }
+
 }
