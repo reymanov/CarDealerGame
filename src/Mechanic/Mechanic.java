@@ -38,7 +38,7 @@ public class Mechanic {
 
     private Boolean isLuckyEnough() {
         int randomNumber = (int) ((Math.random() * (10)) + 1);
-        return randomNumber <= this.luck * 10;
+        return randomNumber < this.luck * 10;
 
     }
 

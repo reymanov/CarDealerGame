@@ -63,6 +63,12 @@ public class Car {
         this.repairHistory.add(new Raport(part,mechanic,price));
     }
 
+    public void showParts() {
+            System.out.printf("%n");
+            System.out.println("Parts: ");
+            this.parts.forEach((part) -> System.out.println(this.parts.indexOf(part) + "." + part.toString()));
+    }
+
     public void showRepairHistory() {
         if(this.repairHistory.isEmpty()){
             System.out.println("No repairs recorded");
