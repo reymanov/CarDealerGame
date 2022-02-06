@@ -33,16 +33,19 @@ public class CarsMenu {
         Scanner scanner = new Scanner(System.in);
         dealer.showCars();
         player.checkAccount();
-        int carNumber = 0;
-        try {
-            System.out.print("Enter number of car to buy: ");
-            carNumber = scanner.nextInt();
-            player.buyCar(dealer, dealer.getCars().get(carNumber));
+        int carNumber = 100;
+        int availableCars = dealer.getCars().size() -1;
+        while (carNumber > availableCars) {
+            try {
+                System.out.print("Enter number of car to buy: ");
+                carNumber = scanner.nextInt();
+                player.buyCar(dealer, dealer.getCars().get(carNumber));
+            }
+            catch (Exception ex){
+                System.out.println("Please enter an integer value between 0 and " + availableCars);
+            }
         }
-        catch (Exception ex){
-            System.out.println("Please enter an integer value between 0 and " + dealer.getCars().size());
-            scanner.next();
-        }
+
     }
 
     private static void sellACar(Player player, CustomersDatabase customerService) {

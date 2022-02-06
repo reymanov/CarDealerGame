@@ -56,7 +56,8 @@ public class Main {
                 "1 - Player",
                 "2 - Car Market",
                 "3 - Mechanic",
-                "4 - Exit",
+                "4 - Customers",
+                "5 - Exit",
         };
         Scanner scanner = new Scanner(System.in);
         int option = 0;
@@ -68,8 +69,8 @@ public class Main {
         carDealer.restockDatabase(5);
         customersService.addCustomers(4);
 
-        Player player = new Player(name, 125000.0);
-        while (option!=4){
+        Player player = new Player(name, 100000.0);
+        while (option!=5){
             printMenu(options);
             try {
                 option = scanner.nextInt();
@@ -77,7 +78,8 @@ public class Main {
                     case 1 -> PlayerMenu.displayMenu(player);
                     case 2 -> CarsMenu.displayMenu(player, carDealer, customersService);
                     case 3 -> MechanicMenu.displayMenu(player);
-                    case 4 -> endGame();
+                    case 4 -> CustomersMenu.displayMenu(player, customersService);
+                    case 5 -> endGame();
                 }
             }
             catch (Exception ex){

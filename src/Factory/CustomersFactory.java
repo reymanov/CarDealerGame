@@ -33,10 +33,10 @@ public class CustomersFactory {
         double cash;
         int value = this.getRandomNumber(4);
         switch (value) {
-            case 1 -> cash = 50000.0;
-            case 2 -> cash = 75000.0;
+            case 1 -> cash = 40000.0;
+            case 2 -> cash = 50000.0;
             case 3 -> cash = 100000.0;
-            case 4 -> cash = 250000.0;
+            case 4 -> cash = 200000.0;
             default -> throw new IllegalStateException("Unexpected value: " + value);
         }
         return cash;

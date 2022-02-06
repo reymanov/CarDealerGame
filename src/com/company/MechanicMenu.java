@@ -16,13 +16,12 @@ public class MechanicMenu {
         Scanner scanner = new Scanner(System.in);
         int option = 0;
         while (option!=4){
-
             Main.printMenu(options);
             option = scanner.nextInt();
             switch (option){
                 case 1: repairWholeCar(player); break;
                 case 2: repairOnePart(player); break;
-                case 3: showRepairHistory(player);break;
+                case 3: showRepairHistory(player); break;
                 case 4: break;
             }
         }
@@ -51,7 +50,6 @@ public class MechanicMenu {
         Mechanic mechanic = null;
         int carNumber = 100;
         int option = 0;
-
         int availableCars = player.getGarage().size()-1;
 
         while (option > 3 || option < 1){
@@ -89,7 +87,6 @@ public class MechanicMenu {
         if(mechanic != null) {
             mechanic.repairEverything(player.getCar(carNumber), player);
         }
-
     }
 
     private static void repairOnePart(Player player) {
@@ -160,23 +157,25 @@ public class MechanicMenu {
 
     private static void showRepairHistory(Player player) {
         Scanner scanner = new Scanner(System.in);
-        int availableCars = player.getGarage().size()-1;
         int carNumber = 100;
 
-        while(carNumber > availableCars) {
-            try{
-                player.showGarage();
-                System.out.printf("%n");
-                System.out.println("Select car to display repair history");
-                carNumber = scanner.nextInt();
-                if(carNumber > availableCars){
-                    throw new Exception();
+            int availableCars = player.getGarage().size() - 1;
+
+            while (carNumber > availableCars) {
+                try {
+                    player.showGarage();
+                    System.out.printf("%n");
+                    System.out.println("Select car to display repair history");
+                    carNumber = scanner.nextInt();
+                    if (carNumber > availableCars) {
+                        throw new Exception();
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Please enter an integer value between 0 and " + availableCars);
                 }
-            }catch (Exception ex){
-                System.out.println("Please enter an integer value between 0 and " + availableCars);
             }
+
+            player.getCar(carNumber).showRepairHistory();
         }
 
-        player.getCar(carNumber).showRepairHistory();
-    }
 }

@@ -16,7 +16,6 @@ public class PlayerMenu {
         Scanner scanner = new Scanner(System.in);
         int option = 0;
         while (option!=4){
-
             Main.printMenu(options);
             option = scanner.nextInt();
             switch (option){
